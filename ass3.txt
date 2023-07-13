@@ -1,0 +1,88 @@
+1- Create a new branch called feature/login. Switch to the new branch.
+
+  CMD: git switch -c feature/login
+
+2- Show all the branches.
+
+ CMD: git branch
+
+3- Update file1.txt in the current branch (feature/login) and make a new commit.
+
+CMD: git add . 
+    git commit -m "final changed"
+
+4- Show the commits across all branches.
+
+ CMD: git log --oneline --all
+
+5- Switch back to the master branch. Show the commits in the feature branch that don’t exist on master.
+
+ CMD: git switch main
+      git log main..feature/login
+
+6- View the differences between master and feature/login.
+
+  CMD: git diff main..feature/login
+ 
+7- Merge feature/login into master.
+
+  CMD: git merge feature/login
+
+8- View the merged and unmerged branches.
+
+  CMD: git branch --merged
+       git branch --no-merged
+
+9- Delete the feature branch.
+
+  CMD: git branch -d feature/login
+
+10- Create a new branch called feature/logout. On this branch, write blue to file1.txt and make a commit.
+
+  CMD: git switch -c feature/logout
+       git add .
+       git commit -m "changed"
+
+Switch back to master, write green to file1.txt and make another commit.
+
+  CMD: git switch main
+       git add .
+       git commit -m "changed"
+
+Try to merge your feature branch into master. You’ll see a conflict. Resolve the conflict by accepting both changes. When you’re done merging, delete the new branch.
+  
+  CMD: git merge feature/logout
+       Updating c607ef5..7db6bf0
+Fast-forward
+ file1.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file1.txt
+  
+  CMD: git branch -d feature/logout
+
+11- Create a new branch called bugfix/login. On this branch, write orange to file1.txt and make a commit.
+ 
+  CMD:git switch -c bugfix/login
+      git add .
+      git commit -m "changed"
+
+Switch back to master, write green to file2.txt and make another commit. View a graph of your branches. You’ll see divergence.
+
+ CMD: git switch main
+      git add .
+      git commit -m "changed"
+      git log --oneline --all --graph
+
+Rebase the new branch on top of master.
+
+  CMD:git rebase bugfix/login
+ 
+View the graph of branches again. Note that the divergence is gone.
+
+  CMD: git log --oneline --all --graph
+
+Do a fast-forward merge to bring the changes in the bugfix branch into master.
+ 
+  CMD: git switch bugfix/login
+       git merge main
+ 
